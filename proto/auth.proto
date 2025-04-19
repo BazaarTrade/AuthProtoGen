@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package pbA;
+
+option go_package = "/pbA";
+
+service Auth {
+    rpc Register(RegisterRequest) returns (RegisterResponse) {}
+    rpc Login(LoginRequest) returns (LoginResponse) {}
+    rpc Logout(LogoutRequest) returns (LogoutResponse) {}
+    rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {}
+    rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse) {}
+}
+
+message RegisterRequest {
+    string Username = 1;
+    string Password = 2;
+}
+
+message RegisterResponse {
+    int64 UserId = 1;
+}
+
+message LoginRequest {
+    string Username = 1;
+    string Password = 2;
+}
+
+message LoginResponse {
+    int64 UserId = 1;
+    string AccessToken = 2;
+    string RefreshToken = 3;
+}
+
+message LogoutRequest {
+    int64 UserId = 1;
+    string RefreshToken = 2;
+}
+
+message LogoutResponse {}
+
+message RefreshTokenRequest {
+    int64 UserId = 1;
+    string RefreshToken = 2;
+}
+
+message RefreshTokenResponse {
+    string AccessToken = 1;
+    string RefreshToken = 2;
+}
+
+message ChangePasswordRequest {
+    int64 UserId = 1;
+    string OldPassword = 2;
+    string NewPassword = 3;
+}
+
+message ChangePasswordResponse {}
