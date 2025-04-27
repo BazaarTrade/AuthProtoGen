@@ -8,51 +8,48 @@ service Auth {
     rpc Register(RegisterRequest) returns (RegisterResponse) {}
     rpc Login(LoginRequest) returns (LoginResponse) {}
     rpc Logout(LogoutRequest) returns (LogoutResponse) {}
-    rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {}
+    rpc IsRefreshTokenValid(IsRefreshTokenValidRequest) returns (IsRefreshTokenValidResponse) {}
     rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse) {}
 }
 
 message RegisterRequest {
-    string Username = 1;
+    string Email = 1;
     string Password = 2;
 }
 
-message RegisterResponse {
-    int64 UserId = 1;
-}
+message RegisterResponse {}
 
 message LoginRequest {
-    string Username = 1;
+    string Email = 1;
     string Password = 2;
 }
 
 message LoginResponse {
-    int64 UserId = 1;
-    string AccessToken = 2;
-    string RefreshToken = 3;
+    int64 UserID = 1;
+    string RefreshToken = 2;
 }
 
 message LogoutRequest {
-    int64 UserId = 1;
-    string RefreshToken = 2;
+    string RefreshToken = 1;
 }
 
 message LogoutResponse {}
 
-message RefreshTokenRequest {
-    int64 UserId = 1;
+message IsRefreshTokenValidRequest {
+    int64 UserID = 1;
     string RefreshToken = 2;
 }
 
-message RefreshTokenResponse {
-    string AccessToken = 1;
-    string RefreshToken = 2;
+message IsRefreshTokenValidResponse {
+    bool IsValid = 1;
+    string NewRefreshToken = 2;
 }
 
 message ChangePasswordRequest {
-    int64 UserId = 1;
+    string Email = 1;
     string OldPassword = 2;
     string NewPassword = 3;
+    string RefreshToken = 4;
 }
 
 message ChangePasswordResponse {}
